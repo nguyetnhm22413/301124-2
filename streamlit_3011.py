@@ -8,6 +8,7 @@ import seaborn as sns
 sheet_id = '1A2EE7TrZrjULJkwHqdDXzoY5KOQkWAkcPxYxsC4B6rQ'
 sheet_name = 'LogisticDataset'
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+df = pd.read_csv(url)  # Tải dữ liệu từ Google Sheets
 st.dataframe(df.head())
 
 # Hàm làm sạch dữ liệu
