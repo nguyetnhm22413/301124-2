@@ -8,11 +8,7 @@ import seaborn as sns
 sheet_id = '1A2EE7TrZrjULJkwHqdDXzoY5KOQkWAkcPxYxsC4B6rQ'
 sheet_name = 'LogisticDataset'
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-
-# Đọc dữ liệu từ Google Sheets
-@st.cache
-def load_data():
-    return pd.read_csv(url)
+st.dataframe(df.head())
 
 # Hàm làm sạch dữ liệu
 def clean_data(df):
@@ -65,24 +61,17 @@ def clean_data(df):
 # Streamlit App
 st.title("Data Cleaning App with Streamlit")
 
-# Tải file dữ liệu
-uploaded_file = st.file_uploader("Tải lên tệp dữ liệu CSV", type=["csv"])
-if uploaded_file:
-    # Đọc dữ liệu
-    df = pd.read_csv(uploaded_file)
-    st.write("### Dữ liệu ban đầu:")
-    st.dataframe(df.head())
 
-    # Làm sạch dữ liệu
-    cleaned_df = clean_data(df)
-    st.write("### Dữ liệu sau khi làm sạch:")
-    st.dataframe(cleaned_df.head())
+# Làm sạch dữ liệu
+cleaned_df = clean_data(df)
+st.write("### Dữ liệu sau khi làm sạch:")
+st.dataframe(cleaned_df.head())
 
-    # Hiển thị thông tin dữ liệu
-    st.write("### Thông tin dữ liệu:")
-    buffer = StringIO()
-    cleaned_df.info(buf=buffer)
-    st.text(buffer.getvalue())
+# Hiển thị thông tin dữ liệu
+st.write("### Thông tin dữ liệu:")
+buffer = StringIO()
+cleaned_df.info(buf=buffer)
+st.text(buffer.getvalue())
 
 import matplotlib.pyplot as plt
 from sklearn.base import BaseEstimator, TransformerMixin
